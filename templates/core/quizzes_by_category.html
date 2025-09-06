@@ -20,8 +20,12 @@
                             <span class="badge badge-secondary">Disabled</span>
                         {% endif %}
                     </p>
+<<<<<<< HEAD
                     <p><strong>Total Questions:</strong> {{ quiz.total_questions }}</p>
 
+=======
+                    <p><strong>Total Questions:</strong> {{ total_questions }}</p>
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
                     {% if user.is_authenticated %}
                         {% if quiz.status == 'active' %}
                    <a href="{% url 'start_quiz' quiz.id %}" class="btn btn-success">Start Quiz</a>

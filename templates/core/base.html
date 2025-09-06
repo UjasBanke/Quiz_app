@@ -5,15 +5,24 @@
     <title>Quiz App</title>
     <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'core/style.css' %}">
+=======
+    <link rel="stylesheet" href="{% static 'static/core/style.css' %}">
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 
 <body>
 
     <!-- Navbar -->
+<<<<<<< HEAD
     <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand" href="{% url 'home' %}">Quiz404 Home</a>
+=======
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'home' %}">Quiz App</a>
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,6 +54,7 @@
       </div>
     </nav>
 
+<<<<<<< HEAD
    
     <div class="container">
         {% block content %}
@@ -57,5 +67,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{% static 'core/script.js' %}"></script>
 
+=======
+    <!-- Page Content -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+   
+
+    <!-- JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'static/js/script.js' %}"></script>
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 </body>
 </html>

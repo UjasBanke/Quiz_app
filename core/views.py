@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+<<<<<<< HEAD
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -12,18 +13,44 @@ from io import TextIOWrapper
 
 
 # ---------------- Public Views ----------------
+=======
+
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
+from .models import Category
+from .models import Quiz, Question, Option, Attempt, Answer
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+import csv
+from io import TextIOWrapper
+from django.db.models import Count
+
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 
 def home(request):
     categories = Category.objects.all()
     return render(request, 'core/home.html', {'categories': categories})
 
 
+<<<<<<< HEAD
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
         confirm = request.POST['confirm_password']
+=======
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email    = request.POST['email']
+        password = request.POST['password']
+        confirm  = request.POST['confirm_password']
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 
         # Validate form
         if password != confirm:
@@ -38,8 +65,17 @@ def register(request):
             messages.error(request, "Email already exists.")
             return redirect('register')
 
+<<<<<<< HEAD
         # Create user safely
         User.objects.create_user(username=username, email=email, password=password)
+=======
+        # Save user with hashed password
+        User.objects.create(
+            username=username,
+            email=email,
+            password=make_password(password)
+        )
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         messages.success(request, "Account created successfully. Please login.")
         return redirect('login')
 
@@ -71,17 +107,29 @@ def logout_view(request):
     return redirect('login')
 
 
+<<<<<<< HEAD
 def category_quizzes(request, category_id):
     quizzes = Quiz.objects.filter(category_id=category_id).annotate(total_questions=Count('question'))
     return render(request, 'core/quizzes_by_category.html', {'quizzes': quizzes})
 
 
+=======
+
+def category_quizzes(request, category_id):
+    quizzes = Quiz.objects.filter(category_id=category_id)
+    return render(request, 'core/quizzes_by_category.html', {'quizzes': quizzes})
+
+
+
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @login_required
 def start_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
 
     if quiz.status != 'active':
         messages.warning(request, "This quiz is not currently active.")
+<<<<<<< HEAD
         return redirect('quizzes_by_category', category_id=quiz.category.id)
 
     # Initialize session for quiz attempt
@@ -91,6 +139,22 @@ def start_quiz(request, quiz_id):
     request.session['answers'] = {}
 
     return redirect('attempt_quiz')
+=======
+        return redirect('quizzes_by_category')
+
+    questions = Question.objects.filter(quiz=quiz).order_by('?')
+    return render(request, 'core/quiz_attempt.html', {
+        'quiz': quiz,
+        'questions': questions,
+        'total_questions': questions.count()
+    })
+
+
+
+
+
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 
 
 @login_required
@@ -98,7 +162,11 @@ def attempt_quiz(request):
     quiz_id = request.session.get('quiz_id')
     question_index = request.session.get('question_index', 0)
     quiz = get_object_or_404(Quiz, pk=quiz_id)
+<<<<<<< HEAD
     questions = quiz.question_set.order_by('id')
+=======
+    questions = quiz.question_set.all()
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 
     if question_index >= len(questions):
         return redirect('quiz_result')
@@ -109,6 +177,7 @@ def attempt_quiz(request):
     if request.method == 'POST':
         selected_option_id = request.POST.get('option')
         if selected_option_id:
+<<<<<<< HEAD
             selected_option = get_object_or_404(Option, id=selected_option_id)
 
             # Update answers safely
@@ -116,12 +185,21 @@ def attempt_quiz(request):
             answers[str(current_question.id)] = selected_option.id
             request.session['answers'] = answers
 
+=======
+            selected_option = Option.objects.get(id=selected_option_id)
+            # Store user's answer
+            request.session['answers'][str(current_question.id)] = selected_option.id
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
             # Update score
             if selected_option.is_correct:
                 request.session['score'] += 1
 
         # Move to next question
+<<<<<<< HEAD
         request.session['question_index'] = question_index + 1
+=======
+        request.session['question_index'] += 1
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         return redirect('attempt_quiz')
 
     return render(request, 'core/quiz_attempt.html', {
@@ -132,6 +210,10 @@ def attempt_quiz(request):
     })
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @login_required
 def quiz_result(request):
     score = request.session.get('score', 0)
@@ -148,11 +230,23 @@ def quiz_result(request):
         total=total_questions,
     )
 
+<<<<<<< HEAD
     # Save answers
     for qid, oid in answers.items():
         question = Question.objects.get(pk=qid)
         option = Option.objects.get(pk=oid)
         Answer.objects.create(attempt=attempt, question=question, selected_option=option)
+=======
+    # Save each answer
+    for qid, oid in answers.items():
+        question = Question.objects.get(pk=qid)
+        option = Option.objects.get(pk=oid)
+        Answer.objects.create(
+            attempt=attempt,
+            question=question,
+            selected_option=option
+        )
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 
     # Clear session
     for key in ['score', 'quiz_id', 'question_index', 'answers']:
@@ -168,6 +262,7 @@ def quiz_result(request):
 @login_required
 def my_attempts(request):
     attempts = Attempt.objects.filter(user=request.user).order_by('-completed_at')
+<<<<<<< HEAD
     for attempt in attempts:
         attempt.completed_at = localtime(attempt.completed_at)
     return render(request, 'core/my_attempts.html', {'attempts': attempts})
@@ -177,6 +272,15 @@ def my_attempts(request):
 
 @staff_member_required
 def admin_dashboard(request):
+=======
+    return render(request, 'core/my_attempts.html', {'attempts': attempts})
+
+
+
+@staff_member_required
+def admin_dashboard(request):
+    from .models import Quiz, Attempt
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
     context = {
         'total_users': User.objects.count(),
         'total_quizzes': Quiz.objects.count(),
@@ -186,19 +290,31 @@ def admin_dashboard(request):
     return render(request, 'core/admin_dashboard.html', context)
 
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_manage_users(request):
     users = User.objects.all()
     return render(request, 'core/admin_users.html', {'users': users})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_add_user(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
         else:
@@ -207,7 +323,10 @@ def admin_add_user(request):
         return redirect('admin_manage_users')
     return render(request, 'core/admin_add_user.html')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def edit_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -217,15 +336,22 @@ def edit_user(request, user_id):
         password = request.POST.get('password')
         if password:
             user.set_password(password)
+<<<<<<< HEAD
             user.save()
             update_session_auth_hash(request, user)  # Prevents logout if editing own account
         else:
             user.save()
+=======
+        user.save()
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         messages.success(request, "User updated successfully.")
         return redirect('admin_manage_users')
     return render(request, 'core/admin_edit_user.html', {'user': user})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
@@ -233,7 +359,10 @@ def delete_user(request, user_id):
     messages.success(request, "User deleted.")
     return redirect('admin_manage_users')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def upload_users_csv(request):
     if request.method == 'POST':
@@ -241,6 +370,7 @@ def upload_users_csv(request):
         file_data = TextIOWrapper(csv_file.file, encoding='utf-8')
         reader = csv.DictReader(file_data)
         for row in reader:
+<<<<<<< HEAD
             try:
                 username = row['username']
                 email = row['email']
@@ -252,17 +382,31 @@ def upload_users_csv(request):
             if not User.objects.filter(username=username).exists():
                 User.objects.create_user(username=username, email=email, password=password)
 
+=======
+            username = row['username']
+            email = row['email']
+            password = row['password']
+            if not User.objects.filter(username=username).exists():
+                User.objects.create_user(username=username, email=email, password=password)
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         messages.success(request, "Users uploaded successfully.")
         return redirect('admin_manage_users')
     return render(request, 'core/admin_upload_users.html')
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_manage_quizzes(request):
     quizzes = Quiz.objects.all()
     return render(request, 'core/admin_quizzes.html', {'quizzes': quizzes})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_add_quiz(request):
     categories = Category.objects.all()
@@ -277,7 +421,10 @@ def admin_add_quiz(request):
         return redirect('admin_manage_quizzes')
     return render(request, 'core/admin_add_quiz.html', {'categories': categories})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_edit_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
@@ -292,7 +439,10 @@ def admin_edit_quiz(request, quiz_id):
         return redirect('admin_manage_quizzes')
     return render(request, 'core/admin_edit_quiz.html', {'quiz': quiz, 'categories': categories})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def admin_delete_quiz(request, quiz_id):
     quiz = get_object_or_404(Quiz, id=quiz_id)
@@ -300,7 +450,10 @@ def admin_delete_quiz(request, quiz_id):
     messages.success(request, "Quiz deleted.")
     return redirect('admin_manage_quizzes')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 @staff_member_required
 def upload_quizzes_csv(request):
     if request.method == 'POST':
@@ -308,6 +461,7 @@ def upload_quizzes_csv(request):
         file_data = TextIOWrapper(csv_file.file, encoding='utf-8')
         reader = csv.DictReader(file_data)
         for row in reader:
+<<<<<<< HEAD
             try:
                 category_name = row['category']
                 title = row['title']
@@ -319,6 +473,15 @@ def upload_quizzes_csv(request):
             category, _ = Category.objects.get_or_create(name=category_name)
             Quiz.objects.create(title=title, category=category, status=status)
 
+=======
+            category_name = row['category']
+            category, _ = Category.objects.get_or_create(name=category_name)
+            Quiz.objects.create(
+                title=row['title'],
+                category=category,
+                status=row.get('status', 'active')
+            )
+>>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
         messages.success(request, "Quizzes uploaded successfully.")
         return redirect('admin_manage_quizzes')
     return render(request, 'core/admin_upload_quizzes.html')
