@@ -3,7 +3,6 @@
 *.pot
 *.pyc
 __pycache__/
-db.sqlite3
 media/
 
 # Migrations (except __init__.py)
@@ -19,14 +18,9 @@ dist/
 build/
 .eggs/
 
-# Virtual environment #
-venv/
-ENV/
-env/
-.venv/
 
 # IDEs / Editors #
-.vscode/
+
 .idea/
 *.swp
 *.swo
