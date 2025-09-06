@@ -36,8 +36,8 @@ It’s built with **Django** and designed for **students, educators, and quiz en
 
 ### 1. Clone the repo  
 ```bash
-git clone https://github.com/your-username/django-quiz-platform.git
-cd django-quiz-platform
+git clone https://github.com/UjasBanke/Quiz_app.git
+cd Quiz_app
 ```
 ### 2. Set up virtual environment & install dependencies  
 ```bash
@@ -71,7 +71,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-### 6. Visit the app
+### 6. Visit the site
 ```bash
 http://127.0.0.1:8000/
 ```
