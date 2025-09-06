@@ -1,17 +1,12 @@
-<<<<<<< HEAD
 
 body {
     background: #f0f9ff;
     font-family: "Poppins", sans-serif;
     color: #000;
-=======
-html, body {
->>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
     margin: 0;
     padding: 0;
 }
 
-<<<<<<< HEAD
 
 .navbar {
     background: linear-gradient(90deg, #00b4d8, #0077b6);
@@ -87,22 +82,4 @@ input, select, textarea {
 .btn-success:hover {
     background: linear-gradient(90deg, #00b4d8, #0077b6);
     transform: translateY(-2px);
-=======
-body {
-    padding-top: 0px;
-    background-color: #f8f9fa;
-}
-
-.card {
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-
-.navbar-brand {
-    font-weight: bold;
-    font-size: 1.3rem;
-}
-
-.navbar {
-    margin-top: 0 !important;
->>>>>>> 019875c9addcb4c44f022ed3c1f97382028c9bce
 }
