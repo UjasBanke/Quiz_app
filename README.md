@@ -7,7 +7,7 @@ It’s built with **Django** and designed for **students, educators, and quiz en
 
 ## ✨ Key Features  
 
-### 👩‍🎓 For Users  
+### 💁🏻‍♀️ For Users  
 - 🎯 **Clean, user-friendly interface** – minimal and distraction-free.  
 - 📝 **Multiple-choice questions (MCQs)** with one correct answer.  
 - ⏳ **Built-in timer** – auto-submits answers if time runs out.  
