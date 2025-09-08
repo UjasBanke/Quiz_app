@@ -311,3 +311,37 @@ def upload_quizzes_csv(request):
         messages.success(request, "Quizzes uploaded successfully.")
         return redirect('admin_manage_quizzes')
     return render(request, 'core/admin_upload_quizzes.html')
+
+
+@staff_member_required
+def upload_questions_csv(request):
+    if request.method == 'POST':
+        csv_file = request.FILES['csv_file']
+        file_data = TextIOWrapper(csv_file.file, encoding='utf-8')
+        reader = csv.DictReader(file_data)
+
+        for row in reader:
+            try:
+                quiz = Quiz.objects.get(title=row['quiz_title'])
+                question = Question.objects.create(
+                    quiz=quiz,
+                    text=row['question_text']
+                )
+
+                # Create options
+                for i in range(1, 5):
+                    option_text = row[f'option{i}']
+                    is_correct = (f'option{i}' == row['correct_option'])
+                    Option.objects.create(
+                        question=question,
+                        text=option_text,
+                        is_correct=is_correct
+                    )
+            except Exception as e:
+                messages.error(request, f"Error: {e}")
+                continue
+
+        messages.success(request, "Questions uploaded successfully!")
+        return redirect('admin_manage_quizzes')
+
+    return render(request, 'core/admin_upload_questions.html')

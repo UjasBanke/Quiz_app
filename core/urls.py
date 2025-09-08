@@ -18,6 +18,8 @@ urlpatterns = [
     path('admin/quizzes/edit/<int:quiz_id>/', views.admin_edit_quiz, name='admin_edit_quiz'),
     path('admin/quizzes/delete/<int:quiz_id>/', views.admin_delete_quiz, name='admin_delete_quiz'),
     path('admin/quizzes/upload_csv/', views.upload_quizzes_csv, name='upload_quizzes_csv'),
+    path('admin/questions/upload_csv/', views.upload_questions_csv, name='upload_questions_csv'),
+
 
     # Site URLs
     path('', views.home, name='home'),
