@@ -10,7 +10,7 @@ from .models import Quiz, Question, Option, Attempt, Answer, Category
 import csv
 from io import TextIOWrapper
 
-# ---------------- Public Views ----------------
+
 
 def home(request):
     categories = Category.objects.all()
