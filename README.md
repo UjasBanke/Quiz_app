@@ -1,6 +1,6 @@
 # 🧠 Django Quiz Platform — **Quiz404**
 
-#🔗 https://quiz-app-8se2.onrender.com
+🔗 https://quiz-app-8se2.onrender.com
 
 **Quiz404** is a modern and interactive application that makes testing knowledge engaging and fun deployed on **Render**
 It’s built with **Django** and designed for **students, educators, and quiz enthusiasts** who want instant results, progress tracking, and a smooth quiz-taking experience.  
