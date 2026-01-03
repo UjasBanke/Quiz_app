@@ -7,25 +7,25 @@ It’s built with **Django** and designed for **students, educators, and quiz en
 
 ---
 
-## ✨ Key Features  
+##  Key Features  
 
-### 💁🏻‍♀️ For Users  
-- 🎯 **Clean, user-friendly interface** – minimal and distraction-free.  
-- 📝 **Multiple-choice questions (MCQs)** with one correct answer.  
-- ⏳ **Built-in timer** – auto-submits answers if time runs out.  
-- 📊 **Instant scoring** – see results right after completing a quiz.  
-- 📜 **Attempt history** – review all past quiz attempts with scores and timestamps.  
+###  For Users  
+-  **Clean, user-friendly interface** – minimal and distraction-free.  
+-  **Multiple-choice questions (MCQs)** with one correct answer.  
+-  **Built-in timer** – auto-submits answers if time runs out.  
+-  **Instant scoring** – see results right after completing a quiz.  
+-  **Attempt history** – review all past quiz attempts with scores and timestamps.  
 
-### 🛠 For Admins  
-- 🔑 **Secure login** for administrators.  
-- 👥 **User management** – add, edit, delete, or bulk upload users via CSV.  
-- 📚 **Quiz management** – create, edit, delete, and bulk upload quizzes.  
-- ❓ **Question & option management** – define correct/wrong answers.  
-- 📈 **Custom dashboard with analytics** – total users, quizzes, and attempts.  
+###  For Admins  
+-  **Secure login** for administrators.  
+-  **User management** – add, edit, delete, or bulk upload users via CSV.  
+-  **Quiz management** – create, edit, delete, and bulk upload quizzes.  
+-  **Question & option management** – define correct/wrong answers.  
+-  **Custom dashboard with analytics** – total users, quizzes, and attempts.  
 
 ---
 
-## 🏗 Tech Stack  
+##  Tech Stack  
 - **Backend**: Django (Python)  
 - **Frontend**: HTML, CSS, Bootstrap 5  
 - **Database**: SQLite (default) – supports PostgreSQL/MySQL  
@@ -34,7 +34,7 @@ It’s built with **Django** and designed for **students, educators, and quiz en
 
 ---
 
-## 🚀 Getting Started  
+##  Getting Started  
 
 ### 1. Clone the repo  
 ```bash
